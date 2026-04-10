@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package payment;
+
+option go_package = "payment-service/pkg/pb/payment";
+
+enum PaymentStatus {
+  PAYMENT_STATUS_UNSPECIFIED = 0;
+  PAYMENT_STATUS_AUTHORIZED = 1;
+  PAYMENT_STATUS_DECLINED = 2;
+}
+
+message Payment {
+  string id = 1;
+  string order_id = 2;
+  string transaction_id = 3;
+  int64 amount = 4;
+  PaymentStatus status = 5;
+}
+
+message CreatePaymentRequest {
+  string order_id = 1;
+  int64 amount = 2;
+}
+
+message CreatePaymentResponse {
+  Payment payment = 1;
+}
+
+
+message GetPaymentRequest {
+  string order_id = 1;
+}
+
+
+message GetPaymentResponse {
+  Payment payment = 1;
+}
+
+
+service PaymentService {
+
+  rpc ProcessPayment(CreatePaymentRequest) returns (CreatePaymentResponse);
+  
+
+  rpc GetPaymentByOrderID(GetPaymentRequest) returns (GetPaymentResponse);
+}

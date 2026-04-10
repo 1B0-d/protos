@@ -1,0 +1,28 @@
+# .gitignore for ap-protos
+
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.iml
+
+# Generated files (intentionally committed separately in ap-pb repo)
+# Do not commit generated code here
+
+# Build
+*.log
+
+# Environment
+.env
+.env.local

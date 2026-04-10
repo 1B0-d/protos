@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package order;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "order-service/pkg/pb/order";
+
+// OrderStatus represents the status of an order
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  ORDER_STATUS_PENDING = 1;
+  ORDER_STATUS_PAID = 2;
+  ORDER_STATUS_FAILED = 3;
+  ORDER_STATUS_CANCELLED = 4;
+}
+
+// Order represents an order transaction
+message Order {
+  string id = 1;
+  string customer_id = 2;
+  string item_name = 3;
+  int64 amount = 4;
+  OrderStatus status = 5;
+  google.protobuf.Timestamp created_at = 6;
+}
+
+// CreateOrderRequest is the request to create a new order
+message CreateOrderRequest {
+  string customer_id = 1;
+  string item_name = 2;
+  int64 amount = 3;
+}
+
+// CreateOrderResponse is the response after creating an order
+message CreateOrderResponse {
+  Order order = 1;
+}
+
+// GetOrderRequest is the request to retrieve an order by ID
+message GetOrderRequest {
+  string id = 1;
+}
+
+// GetOrderResponse is the response containing the order details
+message GetOrderResponse {
+  Order order = 1;
+}
+
+// GetOrdersByCustomerRequest is the request to retrieve orders by customer ID
+message GetOrdersByCustomerRequest {
+  string customer_id = 1;
+}
+
+// GetOrdersByCustomerResponse is the response containing the customer's orders
+message GetOrdersByCustomerResponse {
+  repeated Order orders = 1;
+}
+
+// OrderService defines the RPC methods for order operations
+service OrderService {
+  // CreateOrder creates a new order and processes payment
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+
+  // GetOrderByID retrieves an order by ID
+  rpc GetOrderByID(GetOrderRequest) returns (GetOrderResponse);
+
+  // GetOrdersByCustomerID retrieves all orders for a customer
+  rpc GetOrdersByCustomerID(GetOrdersByCustomerRequest) returns (GetOrdersByCustomerResponse);
+}
