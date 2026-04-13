@@ -67,4 +67,7 @@ service OrderService {
 
   // GetOrdersByCustomerID retrieves all orders for a customer
   rpc GetOrdersByCustomerID(GetOrdersByCustomerRequest) returns (GetOrdersByCustomerResponse);
+
+  // SubscribeToOrderUpdates streams order status changes for a specific order
+  rpc SubscribeToOrderUpdates(GetOrderRequest) returns (stream Order);
 }
