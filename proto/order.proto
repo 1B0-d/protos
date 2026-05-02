@@ -23,6 +23,7 @@ message Order {
   int64 amount = 4;
   OrderStatus status = 5;
   google.protobuf.Timestamp created_at = 6;
+  string customer_email = 7;
 }
 
 // CreateOrderRequest is the request to create a new order
@@ -30,6 +31,7 @@ message CreateOrderRequest {
   string customer_id = 1;
   string item_name = 2;
   int64 amount = 3;
+  string customer_email = 4;
 }
 
 // CreateOrderResponse is the response after creating an order

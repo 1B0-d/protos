@@ -16,11 +16,13 @@ message Payment {
   string transaction_id = 3;
   int64 amount = 4;
   PaymentStatus status = 5;
+  string customer_email = 6;
 }
 
 message CreatePaymentRequest {
   string order_id = 1;
   int64 amount = 2;
+  string customer_email = 3;
 }
 
 message CreatePaymentResponse {
@@ -37,6 +39,14 @@ message GetPaymentResponse {
   Payment payment = 1;
 }
 
+message ListPaymentsRequest {
+  int64 min_amount = 1;
+  int64 max_amount = 2;
+}
+
+message ListPaymentsResponse {
+  repeated Payment payments = 1;
+}
 
 service PaymentService {
 
@@ -44,4 +54,6 @@ service PaymentService {
   
 
   rpc GetPaymentByOrderID(GetPaymentRequest) returns (GetPaymentResponse);
+
+  rpc ListPayments(ListPaymentsRequest) returns (ListPaymentsResponse);
 }

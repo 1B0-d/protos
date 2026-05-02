@@ -5,8 +5,8 @@ generate:
 	@echo "Generating Go code from proto files..."
 	mkdir -p ../ap-pb/payment
 	mkdir -p ../ap-pb/order
-	protoc --go_out=../ap-pb/payment --go-grpc_out=../ap-pb/payment proto/payment.proto
-	protoc --go_out=../ap-pb/order --go-grpc_out=../ap-pb/order proto/order.proto
+	protoc -I proto -I protoc-temp/include --go_out=../ap-pb/payment --go_opt=paths=source_relative --go-grpc_out=../ap-pb/payment --go-grpc_opt=paths=source_relative payment.proto
+	protoc -I proto -I protoc-temp/include --go_out=../ap-pb/order --go_opt=paths=source_relative --go-grpc_out=../ap-pb/order --go-grpc_opt=paths=source_relative order.proto
 	@echo "Code generation complete!"
 
 # Clean generated files
